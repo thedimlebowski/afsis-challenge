@@ -28,6 +28,8 @@ class PCA(object):
         (U,s,V) = np.linalg.svd(X)
         S = np.zeros(np.shape(X))
         S[:self.nred,:self.nred] = np.diag(s[:self.nred])
+        accuracy = 100*(1-np.linalg.norm(X-np.dot(np.dot(U,S),V))/np.linalg.norm(X))
+        print 'Data appromixated up to {0:.2f}% with {1} modes.'.format(accuracy, self.nred)
         self.basis = V[:self.nred,:]
 
     def predict(self, X_in, normalise = True):
